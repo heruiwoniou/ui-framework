@@ -6,5 +6,5 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [theming],
+  plugins: [theming({ dark: 'dark' })],
 }

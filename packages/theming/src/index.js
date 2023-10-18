@@ -51,17 +51,16 @@ export default plugin.withOptions(function ({ themes, dark } = {}) {
               [":root"]: includeThemes[dark],
             };
           }
-        } else if (dark === true) {
-          if (order[0] !== "dark" && order.includes("dark")) {
+          if (dark === true && order[0] !== "dark" && order.includes("dark")) {
             injectThemes["@media (prefers-color-scheme: dark)"] = {
               [":root"]: includeThemes["dark"],
             };
           }
         }
       }
-
       // Set unconventional themes
-      injectThemes["[data-theme=" + theme + "]"] = includeThemes[theme];
+      injectThemes["[data-theme=" + theme + "][data-theme=" + theme + "]"] =
+        includeThemes[theme];
     }
 
     addBase(injectThemes);
