@@ -6,5 +6,5 @@ body,
 html,
 #root {
   height: 100%;
-  @apply text-base-content bg-base-100;
+  @apply text-base-content bg-base-100 transform-gpu transition-colors;
 }

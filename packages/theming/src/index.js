@@ -36,33 +36,35 @@ export default plugin.withOptions(function ({ themes, dark } = {}) {
     }
 
     // inject theme by order
-    const injectThemes = {};
+    const injectDefaultAndDarkThemes = {};
+    const injectOtherThemes = {};
     for (let i = 0; i < order.length; i++) {
       const theme = order[i];
 
       // set default themes
       if (i === 0) {
-        injectThemes[":root"] = includeThemes[theme];
+        injectDefaultAndDarkThemes[":root"] = includeThemes[theme];
       } else if (i === 1) {
         if (dark) {
           if (order[0] !== dark && order.includes(dark)) {
             // set auto dark mode by system
-            injectThemes["@media (prefers-color-scheme: dark)"] = {
-              [":root"]: includeThemes[dark],
-            };
+            injectDefaultAndDarkThemes["@media (prefers-color-scheme: dark)"] =
+              {
+                [":root"]: includeThemes[dark],
+              };
           }
           if (dark === true && order[0] !== "dark" && order.includes("dark")) {
-            injectThemes["@media (prefers-color-scheme: dark)"] = {
-              [":root"]: includeThemes["dark"],
-            };
+            injectDefaultAndDarkThemes["@media (prefers-color-scheme: dark)"] =
+              {
+                [":root"]: includeThemes["dark"],
+              };
           }
         }
       }
       // Set unconventional themes
-      injectThemes["[data-theme=" + theme + "][data-theme=" + theme + "]"] =
-        includeThemes[theme];
+      injectOtherThemes["[data-theme=" + theme + "]"] = includeThemes[theme];
     }
 
-    addBase(injectThemes);
+    addBase({ ...injectDefaultAndDarkThemes, ...injectOtherThemes });
   };
 }, config);

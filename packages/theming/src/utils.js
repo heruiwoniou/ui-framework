@@ -1,4 +1,12 @@
-import { colord } from "colord";
+import { colord, extend } from "colord";
+import mix from "colord/plugins/mix";
+import names from "colord/plugins/names";
+import lch from "colord/plugins/lch";
+import hwb from "colord/plugins/hwb";
+import lab from "colord/plugins/lab";
+import xyz from "colord/plugins/xyz";
+
+extend([mix, names, lch, hwb, lab, xyz]);
 
 function generateForegroundColorFrom(input, percentage = 0.8) {
   const hsl = colord(input)
