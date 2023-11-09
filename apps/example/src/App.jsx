@@ -4,8 +4,8 @@ import {
   MdOutlineBrightness5,
   MdOutlineBrightness4,
   MdAdd,
+  MdQuestionMark,
 } from 'react-icons/md'
-import { AiOutlineQuestionCircle } from 'react-icons/ai'
 
 function App() {
   const [mode, setMode] = React.useState(
@@ -66,10 +66,23 @@ function App() {
             <input type="text" className="input" placeholder="E.g Blog Posts" />
           </div>
           <div>
-            <div className="input-wrapper">
-              <AiOutlineQuestionCircle className="input-icon-left" />
-              <input type="text" className="input" placeholder="Left Icon" />
-              <AiOutlineQuestionCircle className="input-icon-right" />
+            <div className="relative">
+              <MdQuestionMark className="absolute top-1/2 -translate-y-2/4 left-1" />
+              <input
+                type="text"
+                className="input pl-5"
+                placeholder="Left Icon Example"
+              />
+            </div>
+          </div>
+          <div>
+            <div className="relative">
+              <MdQuestionMark className="absolute top-1/2 -translate-y-2/4 right-1" />
+              <input
+                type="text"
+                className="input pr-5"
+                placeholder="Right Icon Example"
+              />
             </div>
           </div>
         </div>
