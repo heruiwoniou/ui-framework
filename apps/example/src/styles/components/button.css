@@ -1,0 +1,35 @@
+@layer components {
+  .button {
+    --over: 0;
+    --bg: linear-gradient(
+      hsl(var(--b3) / calc(0.52 + var(--over))) 0%,
+      hsl(var(--b3) / calc(0.5 + var(--over))) 100%
+    );
+    --c: hsl(var(--bc));
+    @apply h-6 border-none px-2 rounded text-xs border-neutral-content border-opacity-20 flex items-center justify-center gap-1;
+    cursor: default;
+    color: var(--c);
+    user-select: none;
+    background: var(--bg);
+    box-shadow: rgba(0, 0, 0, 0.8) 0px 0.5px 1px,
+      rgba(255, 255, 255, 0.12) 0px 0.5px 0.5px inset;
+    align-self: center;
+
+    &:hover {
+      --over: 0.06;
+    }
+
+    &:active {
+      --over: -0.06;
+    }
+
+    &-primary {
+      --c: hsl(var(--pc));
+      --bg: hsl(var(--p) / calc(0.94 + var(--over)));
+    }
+
+    &-block {
+      width: 100%;
+    }
+  }
+}

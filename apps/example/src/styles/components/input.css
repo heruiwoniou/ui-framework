@@ -1,0 +1,8 @@
+@layer components {
+  .input {
+    @apply h-6 w-full border border-base-content border-opacity-30 bg-base-100 rounded px-2 py-1 text-xs;
+  }
+  .input-wrapper {
+    @apply relative;
+  }
+}

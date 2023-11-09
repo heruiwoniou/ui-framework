@@ -1,0 +1,35 @@
+@layer components {
+  .switch {
+    --color: white;
+    --bg: hsl(var(--nc));
+    --padding: 2px;
+    --size: 1rem;
+    --ratio: 1.6;
+    --offset: calc(var(--size) * var(--ratio) - var(--size) - var(--padding));
+    --current-offset: calc(var(--offset) * -1);
+    --during: 0.2s;
+
+    @apply cursor-pointer border-none appearance-none border;
+
+    width: calc(var(--size) * var(--ratio));
+    height: calc(var(--size));
+    border-radius: calc(var(--size) / 2);
+    background: var(--color);
+    border-width: var(--padding);
+    border-color: var(--bg);
+    transition: background var(--during) ease-out, border var(--during) ease-out,
+      box-shadow var(--during) ease-out;
+    box-shadow: var(--current-offset) 0 0 var(--padding) var(--bg) inset,
+      0 0 0 var(--padding) var(--bg) inset;
+
+    &:checked {
+      --color: white;
+      --current-offset: var(--offset);
+      --bg: hsl(var(--p));
+    }
+
+    &[disabled] {
+      cursor: not-allowed;
+    }
+  }
+}

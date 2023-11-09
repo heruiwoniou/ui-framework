@@ -110,7 +110,7 @@ export const convertThemeToVariables = function (input) {
     resultObj["--wa"] = 43 + " " + 96 + "%" + " " + 56 + "%";
   }
   if (!Object.hasOwn(input, "error")) {
-    resultObj["--er"] = 0 + " " + 91 + "%" + " " + 71 + "%";
+    resultObj["--er"] = 0 + " " + 67 + "%" + " " + 45 + "%";
   }
 
   // auto generate content colors
