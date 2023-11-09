@@ -3,7 +3,7 @@
     --chkbg: var(--p);
     --chkfg: var(--pc);
     --size: 0.8rem;
-    @apply border-neutral-content rounded-sm cursor-pointer appearance-none border hover:border-primary;
+    @apply border-base-content border-opacity-40 rounded-sm cursor-pointer appearance-none border hover:border-primary;
     width: var(--size);
     height: var(--size);
 

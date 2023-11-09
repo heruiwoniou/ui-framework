@@ -1,5 +1,26 @@
 @layer components {
   .input {
-    @apply h-6 w-full border border-base-content border-opacity-30 bg-base-100 rounded px-2 py-1 text-xs;
+    @apply h-6 w-full border border-base-content border-opacity-20 bg-base-200 bg-opacity-20 rounded px-2 py-1 text-xs;
+    @apply focus:bg-opacity-5;
+
+    &-info {
+      @apply border-info;
+    }
+
+    &-success {
+      @apply border-success;
+    }
+
+    &-error {
+      @apply border-error;
+    }
+
+    &-warning {
+      @apply border-warning;
+    }
+  }
+
+  textarea.input {
+    @apply h-auto min-h-[1.5rem] resize-none;
   }
 }

@@ -20,21 +20,30 @@ function generateDarkenColorFrom(input, percentage = 0.07) {
   return `${hsl.h} ${hsl.s}% ${hsl.l}%`;
 }
 
+function generateLightenColorFrom(input, percentage = 0.07) {
+  const hsl = colord(input).lighten(percentage).toHsl();
+  return `${hsl.h} ${hsl.s}% ${hsl.l}%`;
+}
+
 export const variables = {
   primary: "--p",
-  "primary-focus": "--pf",
+  "primary-dark": "--pd",
+  "primary-light": "--pl",
   "primary-content": "--pc",
 
   secondary: "--s",
-  "secondary-focus": "--sf",
+  "secondary-dark": "--sd",
+  "secondary-light": "--sl",
   "secondary-content": "--sc",
 
   accent: "--a",
-  "accent-focus": "--af",
+  "accent-dark": "--ad",
+  "accent-light": "--al",
   "accent-content": "--ac",
 
   neutral: "--n",
-  "neutral-focus": "--nf",
+  "neutral-dark": "--nd",
+  "neutral-light": "--nl",
   "neutral-content": "--nc",
 
   "base-100": "--b1",
@@ -43,15 +52,23 @@ export const variables = {
   "base-content": "--bc",
 
   info: "--in",
+  "info-dark": "--ind",
+  "info-light": "--inl",
   "info-content": "--inc",
 
   success: "--su",
+  "success-dark": "--sud",
+  "success-light": "--sul",
   "success-content": "--suc",
 
   warning: "--wa",
+  "warning-dark": "--wad",
+  "warning-light": "--wal",
   "warning-content": "--wac",
 
   error: "--er",
+  "error-dark": "--erd",
+  "error-light": "--erl",
   "error-content": "--erc",
 };
 
@@ -69,18 +86,32 @@ export const convertThemeToVariables = function (input) {
     }
   }
 
-  // auto generate focus colors
-  if (!Object.hasOwn(input, "primary-focus")) {
-    resultObj["--pf"] = generateDarkenColorFrom(input["primary"]);
+  // auto generate dark colors
+  if (!Object.hasOwn(input, "primary-dark")) {
+    resultObj["--pd"] = generateDarkenColorFrom(input["primary"]);
   }
-  if (!Object.hasOwn(input, "secondary-focus")) {
-    resultObj["--sf"] = generateDarkenColorFrom(input["secondary"]);
+  if (!Object.hasOwn(input, "secondary-dark")) {
+    resultObj["--sd"] = generateDarkenColorFrom(input["secondary"]);
   }
-  if (!Object.hasOwn(input, "accent-focus")) {
-    resultObj["--af"] = generateDarkenColorFrom(input["accent"]);
+  if (!Object.hasOwn(input, "accent-dark")) {
+    resultObj["--ad"] = generateDarkenColorFrom(input["accent"]);
   }
-  if (!Object.hasOwn(input, "neutral-focus")) {
-    resultObj["--nf"] = generateDarkenColorFrom(input["neutral"]);
+  if (!Object.hasOwn(input, "neutral-dark")) {
+    resultObj["--nd"] = generateDarkenColorFrom(input["neutral"]);
+  }
+
+  // auto generate lighten colors
+  if (!Object.hasOwn(input, "primary-light")) {
+    resultObj["--pd"] = generateLightenColorFrom(input["primary"]);
+  }
+  if (!Object.hasOwn(input, "secondary-light")) {
+    resultObj["--sd"] = generateLightenColorFrom(input["secondary"]);
+  }
+  if (!Object.hasOwn(input, "accent-light")) {
+    resultObj["--ad"] = generateLightenColorFrom(input["accent"]);
+  }
+  if (!Object.hasOwn(input, "neutral-light")) {
+    resultObj["--nd"] = generateLightenColorFrom(input["neutral"]);
   }
 
   // auto generate base colors
@@ -100,17 +131,60 @@ export const convertThemeToVariables = function (input) {
 
   // auto generate state colors
 
+  const infoDefault = "hsl(198 93% 60%)";
   if (!Object.hasOwn(input, "info")) {
     resultObj["--in"] = 198 + " " + 93 + "%" + " " + 60 + "%";
   }
+  if (!Object.hasOwn(input, "info-dark")) {
+    resultObj["--ind"] = generateDarkenColorFrom(input["info"] || infoDefault);
+  }
+  if (!Object.hasOwn(input, "info-light")) {
+    resultObj["--inl"] = generateLightenColorFrom(input["info"] || infoDefault);
+  }
+
+  const successDefault = "hsl(158 64% 52%)";
   if (!Object.hasOwn(input, "success")) {
     resultObj["--su"] = 158 + " " + 64 + "%" + " " + 52 + "%";
   }
+  if (!Object.hasOwn(input, "success-dark")) {
+    resultObj["--sd"] = generateDarkenColorFrom(
+      input["info"] || successDefault
+    );
+  }
+  if (!Object.hasOwn(input, "success-light")) {
+    resultObj["--sl"] = generateLightenColorFrom(
+      input["info"] || successDefault
+    );
+  }
+
+  const warningDefault = "hsl(43 96% 56%)";
   if (!Object.hasOwn(input, "warning")) {
     resultObj["--wa"] = 43 + " " + 96 + "%" + " " + 56 + "%";
   }
+  if (!Object.hasOwn(input, "warning-dark")) {
+    resultObj["--wad"] = generateDarkenColorFrom(
+      input["warning"] || warningDefault
+    );
+  }
+  if (!Object.hasOwn(input, "warning-light")) {
+    resultObj["--wal"] = generateLightenColorFrom(
+      input["warning"] || warningDefault
+    );
+  }
+
+  const errorDefault = "hsl(0 67% 45%)";
   if (!Object.hasOwn(input, "error")) {
     resultObj["--er"] = 0 + " " + 67 + "%" + " " + 45 + "%";
+  }
+  if (!Object.hasOwn(input, "error-dark")) {
+    resultObj["--erd"] = generateDarkenColorFrom(
+      input["error"] || errorDefault
+    );
+  }
+  if (!Object.hasOwn(input, "error-light")) {
+    resultObj["--erl"] = generateLightenColorFrom(
+      input["error"] || errorDefault
+    );
   }
 
   // auto generate content colors
@@ -118,44 +192,28 @@ export const convertThemeToVariables = function (input) {
     resultObj["--bc"] = generateForegroundColorFrom(input["base-100"]);
   }
   if (!Object.hasOwn(input, "primary-content")) {
-    resultObj["--pc"] = generateForegroundColorFrom(input["primary"]);
+    resultObj["--pc"] = generateForegroundColorFrom(input["primary"], 0.95);
   }
   if (!Object.hasOwn(input, "secondary-content")) {
-    resultObj["--sc"] = generateForegroundColorFrom(input["secondary"]);
+    resultObj["--sc"] = generateForegroundColorFrom(input["secondary"], 0.95);
   }
   if (!Object.hasOwn(input, "accent-content")) {
-    resultObj["--ac"] = generateForegroundColorFrom(input["accent"]);
+    resultObj["--ac"] = generateForegroundColorFrom(input["accent"], 0.95);
   }
   if (!Object.hasOwn(input, "neutral-content")) {
-    resultObj["--nc"] = generateForegroundColorFrom(input["neutral"]);
+    resultObj["--nc"] = generateForegroundColorFrom(input["neutral"], 0.95);
   }
   if (!Object.hasOwn(input, "info-content")) {
-    if (Object.hasOwn(input, "info")) {
-      resultObj["--inc"] = generateForegroundColorFrom(input["info"]);
-    } else {
-      resultObj["--inc"] = 198 + " " + 100 + "%" + " " + 12 + "%";
-    }
+    resultObj["--inc"] = generateForegroundColorFrom(input["info"] || infoDefault, 0.95);
   }
   if (!Object.hasOwn(input, "success-content")) {
-    if (Object.hasOwn(input, "success")) {
-      resultObj["--suc"] = generateForegroundColorFrom(input["success"]);
-    } else {
-      resultObj["--suc"] = 158 + " " + 100 + "%" + " " + 10 + "%";
-    }
+    resultObj["--suc"] = generateForegroundColorFrom(input["success"] || successDefault, 0.95);
   }
   if (!Object.hasOwn(input, "warning-content")) {
-    if (Object.hasOwn(input, "warning")) {
-      resultObj["--wac"] = generateForegroundColorFrom(input["warning"]);
-    } else {
-      resultObj["--wac"] = 43 + " " + 100 + "%" + " " + 11 + "%";
-    }
+    resultObj["--wac"] = generateForegroundColorFrom(input["warning"] || warningDefault, 0.95);
   }
   if (!Object.hasOwn(input, "error-content")) {
-    if (Object.hasOwn(input, "error")) {
-      resultObj["--erc"] = generateForegroundColorFrom(input["error"]);
-    } else {
-      resultObj["--erc"] = 0 + " " + 100 + "%" + " " + 14 + "%";
-    }
+    resultObj["--erc"] = generateForegroundColorFrom(input["error"] || errorDefault, 0.95);
   }
 
   return resultObj;

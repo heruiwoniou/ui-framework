@@ -1,7 +1,7 @@
 @layer components {
   .switch {
     --color: white;
-    --bg: hsl(var(--nc));
+    --bg: hsl(var(--bc) / 0.8);
     --padding: 2px;
     --size: 1rem;
     --ratio: 1.6;

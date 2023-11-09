@@ -1,31 +1,70 @@
 @layer components {
   .button {
     --over: 0;
-    --bg: linear-gradient(
-      hsl(var(--b3) / calc(0.52 + var(--over))) 0%,
-      hsl(var(--b3) / calc(0.5 + var(--over))) 100%
-    );
+    --bg: hsl(var(--b3) / calc(0.7 + var(--over)));
     --c: hsl(var(--bc));
-    @apply h-6 border-none px-2 rounded text-xs border-neutral-content border-opacity-20 flex items-center justify-center gap-1;
+    @apply h-6 border-none px-2 rounded text-xs
+      border-neutral-content border-opacity-20 flex items-center justify-center
+      gap-1;
     cursor: default;
     color: var(--c);
     user-select: none;
     background: var(--bg);
     box-shadow: rgba(0, 0, 0, 0.8) 0px 0.5px 1px,
-      rgba(255, 255, 255, 0.12) 0px 0.5px 0.5px inset;
+      rgba(255, 255, 255, 0.2) 0px 0.5px 0.5px inset;
     align-self: center;
 
     &:hover {
-      --over: 0.06;
+      --over: 0.3;
     }
 
     &:active {
-      --over: -0.06;
+      --over: -0.1;
+    }
+
+    &-bordered {
+      --bg: hsl(var(--bc) / 0.9);
+      @apply border-opacity-100 border border-solid;
+      background: none;
+      border-width: 1px;
+      border-color: var(--bg);
+      color: var(--bg);
+      box-shadow: none;
     }
 
     &-primary {
       --c: hsl(var(--pc));
-      --bg: hsl(var(--p) / calc(0.94 + var(--over)));
+      --bg: hsl(var(--p) / calc(0.9 + var(--over)));
+    }
+
+    &-secondary {
+      --c: hsl(var(--sc));
+      --bg: hsl(var(--s) / calc(0.9 + var(--over)));
+    }
+
+    &-accent {
+      --c: hsl(var(--ac));
+      --bg: hsl(var(--a) / calc(0.9 + var(--over)));
+    }
+
+    &-info {
+      --c: hsl(var(--inc));
+      --bg: hsl(var(--in) / calc(0.9 + var(--over)));
+    }
+
+    &-success {
+      --c: hsl(var(--suc));
+      --bg: hsl(var(--su) / calc(0.9 + var(--over)));
+    }
+
+    &-warning {
+      --c: hsl(var(--wac));
+      --bg: hsl(var(--wa) / calc(0.9 + var(--over)));
+    }
+
+    &-error {
+      --c: hsl(var(--erc));
+      --bg: hsl(var(--er) / calc(0.9 + var(--over)));
     }
 
     &-block {
